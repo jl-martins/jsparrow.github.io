@@ -21,26 +21,7 @@ This description assumes that the following components are available and correct
 
 ## Jenkins Configuration
 
-A jSparrow build requires a license key and a config file (jsparrow.yml) to be present. Both can be kept securely within Jenkins and then referenced by the pipeline. 
-
-### License Key as Secret Text
-
-The jSparrow license key can be provided using the `-Dlicense=<license-key>` parameter, as described in the [Plugin Goals](/maven/getting-started.html#plugin-goals). However, it might not be desirable to provide the key in plain text.  
-With the help of Jenkins "secret text" credentials, it is possible to never have the license key appear in the pipeline. Even in log statements the "secret text" will only appear as asterisks. 
-
-Jenkins lets users add credentials either globally, or build pipeline specific. For one pipeline, there is no practical difference between one or the other. 
-
-1. Navigate to the "Add Credentials" either global or pipeline specific
-    * Global: *Manage Jenkins* -> *Manage Credentials* -> *System* (click on "Store") -> *Global credentials (unrestricted)*
-    * Pipeline specific: [Your Pipeline] -> *Credentials* -> *Stores scoped to [Your Pipeline]* -> *Global credentials (unrestricted)*
-1. This is a description of the fields of the following screen:  
-  [ ![jSparrow license](/img/maven/jenkins-jsparrow-license.png) ](/img/maven/jenkins-jsparrow-license.png)
-    * Kind: Select "Secret text"
-    * Scope: This needs to be "Global", otherwise the pipeline will not have access
-    * Secret: This is where the jSparrow license key has to be provided.  
-    Note: The content of this variable cannot be viewed anymore after putting it here and it will not appear in logs or echo statements.
-    * ID: This is the key with which the secret text can be referenced in the pipeline
-    * Description: It is always a good practice to provide a description
+A jSparrow build requires a config file (jsparrow.yml) to be present. The file can be kept securely within Jenkins and then referenced by the pipeline.
 
 ### jSparrow Config File
 

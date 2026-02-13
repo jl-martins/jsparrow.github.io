@@ -5,6 +5,10 @@ title: Release Notes
 
 Here you will find the latest information about releases of the jSparrow Maven plugin.
 
+## 3.21.0 <Badge vertical="middle" text="TBD"/>
+
+jSparrow Maven plugin no longer requires a license. Upgrade to this version to start refactoring without a license key.
+
 ## 3.20.0 <Badge vertical="middle" text="26.09.2022"/>
 
 Three new rules are shipped with release 3.20.0 of the jSparrow Maven Plugin:

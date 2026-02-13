@@ -9,8 +9,8 @@ sidebarDepth: 2
 
 The jSparrow Maven plugin (JMP) is a continuous integration tool to apply automatic refactorings. It supplies similar rules as the jSparrow Eclipse plugin, but works without user input.
 
-::: warning Important
-We are currently only offering Maven licenses on request
+::: tip Important
+jSparrow is fully open source. As of version 3.21.0, the Maven plugin no longer requires a license.
 :::
 
 ## Installation
@@ -103,7 +103,7 @@ To use the jsparrow-maven-plugin on a project, add the following code snippet to
     <plugin>
       <groupId>eu.jsparrow</groupId>
       <artifactId>jsparrow-maven-plugin</artifactId>
-      <version>3.20.0</version>
+      <version>3.21.0</version>
     </plugin>
   </plugins>
 </build>  
@@ -235,8 +235,6 @@ You may add the following parameters:
 | `-Dprofile=<selected-profile-id>`	| The specified profile will be used. Make sure that either a `jsparrow.yml` is in the root directory or `-DconfigFile=<config-file-path>` is specified. The given profile ID will be compared to the declared profiles in the configuration file. If the given profile ID is not declared, an error will be thrown. |
 | `-Dformatter=<formatter-file-path>`	| The specified Eclipse formatter file will be used when applying the [Reformat Code](/rules/code-formatter.html) rule. Have a look at [Eclipse Formatter File](/maven/additional-configuration.html#eclipse-formatter-file) for more information. |
 | `-DdefaultConfiguration`	| The built-in default configuration will be used for refactoring. If this parameter is set, the configuration in the root of the project will be ignored. <br /> It executes the following rules: <DefaultConfigurationRules /> |
-| `-Dlicense=<license-key>`	| Specify the license key to be used. This takes priority over a configuration via config file. In "Machine Configuration" the config file approach is described. |
-| `-Durl=<url>`	| Specify the licensing server URL to use in case a [local server](/maven/local-license-server.html) should be used. |
 | `-DselectedSources=<glob-patterns>` | Specify the [glob expression patterns](https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob) relative to the project root directory for selecting the sources to refactor. Use line breaks to specify multiple glob patterns. If not specified, all Java sources in the project will be considered for refactoring. Examples: <SelectedSourcesExamples /> |
 | `-DtempWorkspace='...'` |  Specify the location for the temporal Eclipse workspace to import the project during jSparrow execution. This should an absolute path of an empty directory with read, write, and execute permissions. If not provided, jSparrow will use the Java temp directory for creating the workspace. |
 
@@ -244,7 +242,6 @@ You may add the following parameters:
 
 This goal starts jSparrow in "Report Mode". Similar to the `refactor` goal, the `report` goal analyzes the project and computes refactorings with the selected rules.  
 However, instead of committing the code changes to the original sources, jSparrow generates an HTML report with the findings of each rule, similar to our statistics (e.g., for [jenkins-core](/statistics/jenkins-statistics.html?p=jenkins-core)).  
-No valid license is required and the source files are not affected.
 
 ```bash
 $ mvn jsparrow:report
@@ -254,10 +251,6 @@ Additionally, the `report` goal offers a parameter to specify the location of th
 | Parameter	| Description |
 |:----------|:-------------|
 | `-Ddestination='path'` | Specify the location to generate the jSparrow reports into. The default value is the path of the project's build directory which is typically the target folder in the project root. |
-
-::: tip Note
-Since the `report` goal does not require a license, this is a great way to see what the jSparrow Maven plugin has to offer for your project!
-:::
 
 ### List Rules
 This goal lists rules with their IDs, names and descriptions.
@@ -280,38 +273,11 @@ This goal lists all rules in a table with ID and name
 $ mvn jsparrow:list-rules-short
 ```
 
-### License Info
-This goal shows the licensing information.
-
-```bash
-$ mvn jsparrow:license-info
-```
-You may add the following parameters:
-
-| Parameter	| Description |
-|:----------|-------------|
-| `-Dlicense=<license-key>`	| The license key to be used |
-| `-Durl=<url>`	| The licensing server to contact |
-
-If the license key is not provided as a parameter, JMP will search for it in `~/.config/jsparrow-standalone/config.yml`.
-
 ### Help
 This goal provides the plugin help.
 
 ```bash
 $ mvn jsparrow:help
-```
-
-## Machine Configuration
-It is possible to specify certain parameters using a configuration file in the users home directory, so it is not necessary to specify them using the command line for each run.
-
-Currently only passing the license key and license server location using the configuration file is possible.
-
-To pass the properties using the configuration file, create a file with the following contents in `$HOME/.config/jsparrow-standalone/config.yml`:
-
-```yaml
-key: <license-key>
-url: <http://somelocation.loc/>
 ```
 
 ## Limitations
